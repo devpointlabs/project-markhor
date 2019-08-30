@@ -11,6 +11,8 @@ gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
+# Encryption
+gem "bcrypt", "~> 3.1.7"
 
 group :development, :test do
   # Call 'binding.pry' anywhere in the code to stop execution and get a debugger console
