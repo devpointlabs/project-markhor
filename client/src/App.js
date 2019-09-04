@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import Login from "./components/Login.js"
 import Register from "./components/Register.js"
 import Dashboard from "./components/Dashboard.js"
+import Profile from "./components/Profile.js"
 import NotFound from "./components/NotFound.js"
 import ProtectedRoute from "./components/ProtectedRoute.js"
 import AuthRoute from "./components/AuthRoute.js"
@@ -18,6 +19,7 @@ const App = () => (
       <FetchUser>
         <Router>
           <ProtectedRoute path="/" component={Dashboard} />
+          <ProtectedRoute path="/profile" component={Profile} />
           <Dashboard path="/" />
           <AuthRoute path="/login" component={Login} />
           <Login path="/login" />

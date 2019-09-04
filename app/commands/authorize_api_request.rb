@@ -14,7 +14,6 @@ class AuthorizeApiRequest
 
     # returns the user or throws error
     def user
-      # binding.pry
       @user ||= User.find(decoded_auth_token[:user_id]) if decoded_auth_token
       @user ||= errors.add(:token, 'Invalid token') && nil
     end

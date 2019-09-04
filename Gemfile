@@ -17,7 +17,7 @@ gem "bcrypt", "~> 3.1.7"
 gem "jwt"
 # Cleans up controllers and models 
 gem "simple_command"
-# ???
+# Faster serializers 
 gem 'fast_jsonapi'
 
 group :development, :test do
