@@ -13,6 +13,12 @@ gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.4.2', require: false
 # Encryption
 gem "bcrypt", "~> 3.1.7"
+# JWT tokens for authentication 
+gem "jwt"
+# Cleans up controllers and models 
+gem "simple_command"
+# ???
+gem 'fast_jsonapi'
 
 group :development, :test do
   # Call 'binding.pry' anywhere in the code to stop execution and get a debugger console
