@@ -23,6 +23,8 @@ gem 'fast_jsonapi'
 group :development, :test do
   # Call 'binding.pry' anywhere in the code to stop execution and get a debugger console
   gem "pry-rails"
+  # Generate fake test data
+  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 end
 
 group :development do
