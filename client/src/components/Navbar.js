@@ -43,9 +43,14 @@ const Navbar = () => {
     <StyledNavbar>
       <AppBar position="static">        
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h5" className={classes.title}>
             <Link to="/" style={{ textDecoration: "none", color: "white" }}>
               Project Markhor
+            </Link>
+          </Typography>
+          <Typography variant="h6">
+            <Link to="/courses" style={{ textDecoration: "none", color: "white" }}>
+                Courses
             </Link>
           </Typography>
           {

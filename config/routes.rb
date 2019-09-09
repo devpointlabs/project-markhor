@@ -3,5 +3,7 @@ Rails.application.routes.draw do
     post "/authenticate", to: "authentication#authenticate"
     post '/validate_token', to: 'authentication#validate_token'
     post '/registration', to: 'authentication#registration'
+
+    resources :courses
   end
 end
