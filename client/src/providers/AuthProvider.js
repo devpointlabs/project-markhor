@@ -59,6 +59,18 @@ export const AuthProvider = ({ children, }) => {
       })
   };
 
+  const course_register_authenticate = ({ email, password, id, }, navigate) => {
+    dispatch({ type: AUTH_START, });
+    axios.post("/api/course_register_authenticate", { email, password, id, })
+      .then( res => {
+        dispatch({ type: AUTH_SUCCESS, user: res.data.data.attributes, });
+        navigate("/");
+      })
+      .catch( err => {
+        dispatch({ type: AUTH_FAIL, });
+      })
+  };
+
   const validateToken = () => {
     dispatch({ type: VALIDATE_START, });
     return new Promise( (resolve, reject) => {
@@ -87,6 +99,8 @@ export const AuthProvider = ({ children, }) => {
       validateToken,
       logout,
       registration,
+      course_register_authenticate,
+
     }}>
       { children }
     </AuthContext.Provider>

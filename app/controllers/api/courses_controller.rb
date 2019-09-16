@@ -1,8 +1,13 @@
 class Api::CoursesController < ApiController
-  before_action :set_course, only: [:show, :update, :destroy]
+  before_action :set_course, only: [:show, :update, :destroy, :course_users, :generate_register_token, :verify_register_token]
+  skip_before_action :authenticate_request, only: :verify_register_token
 
   def index
-    render json: CourseSerializer.new(Course.all)
+    render json: CourseSerializer.new(@current_user.courses)
+  end
+
+  def course_users
+    render json: UserSerializer.new(User.course_users(@course.id))
   end
 
   def show
@@ -31,6 +36,19 @@ class Api::CoursesController < ApiController
   def destroy
     @course.destroy
     # TODO: Render message
+  end
+
+  def generate_register_token
+    @course.regenerate_register_token
+    render json: CourseSerializer.new(@course)
+  end
+
+  def verify_register_token
+    if @course.register_token == params[:token]
+      render json: CourseSerializer.new(@course)
+    else
+      render :json => { :errors => "URL not found" }, :status => 404
+    end
   end
 
   private

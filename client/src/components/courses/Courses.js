@@ -1,11 +1,13 @@
-import React, { useState, useEffect, } from "react";
+import React, { useState, useEffect, useContext, } from "react";
 import axios from "../../utils/webRequests";
+import { AuthContext, } from "../../providers/AuthProvider";
 import { Link, } from "@reach/router";
 
 import { Button, Card, CardContent, Typography, } from '@material-ui/core';
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
+  const { state: { user: { admin, }, } } = useContext(AuthContext);
 
   useEffect( () => {
     axios.get("/api/courses")
@@ -19,11 +21,13 @@ const Courses = () => {
 
   return (
     <div>
-      <Link to="/courses/new" style={{ textDecoration: "none", color: "black" }}>
-        <Button variant="contained" >
-          Add Course
-        </Button>
-      </Link>
+      { admin &&
+        <Link to="/admin/courses/new" style={{ textDecoration: "none", color: "black" }}>
+          <Button variant="contained" >
+            Add Course
+          </Button>
+        </Link>
+      }
 
       <br />
       <br />
@@ -32,8 +36,8 @@ const Courses = () => {
         { courses.map( course => {
           const { id, name, } = course.attributes;
           return (
-            <Link to={`${id}`}>
-              <Card key={id}>
+            <Link to={`${id}`} key={id}>
+              <Card>
                 <CardContent>
                   <Typography color="textSecondary" gutterBottom>
                     { name }

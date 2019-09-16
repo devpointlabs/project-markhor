@@ -11,4 +11,15 @@ class User < ApplicationRecord
     self.password == password_confirmation ? true : false
   end
 
+  def self.course_users(course_id)
+    User.find_by_sql(["
+      SELECT u.id, email, first_name, last_name, avatar, admin, e.role
+      FROM users u
+      LEFT JOIN enrollments e
+      ON u.id = e.user_id
+      WHERE e.course_id = ?
+      ORDER BY last_name
+    ", course_id])
+  end
+
 end

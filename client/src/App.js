@@ -7,10 +7,15 @@ import Profile from "./components/Profile.js"
 import Courses from "./components/courses/Courses.js"
 import CourseForm from "./components/courses/CourseForm.js"
 import CourseView from "./components/courses/CourseView.js"
+import CourseRegister from "./components/courses/CourseRegister.js"
 import NotFound from "./components/NotFound.js"
 import ProtectedRoute from "./components/ProtectedRoute.js"
 import AuthRoute from "./components/AuthRoute.js"
+import AdminRoute from "./components/AdminRoute.js"
 import FetchUser from "./components/FetchUser";
+import CheckToken from "./components/CheckToken";
+import ProtectedRoutes from "./components/ProtectedRoutes";
+import AdminRoutes from "./components/AdminRoutes";
 import { Router, } from "@reach/router";
 
 import { Container } from '@material-ui/core';
@@ -21,13 +26,23 @@ const App = () => (
     <Container maxWidth="lg">    
       <FetchUser>
         <Router>
-          <ProtectedRoute path="/" component={Dashboard} />
-          <ProtectedRoute path="/profile" component={Profile} />
-          <ProtectedRoute path="/courses" component={Courses} />
-          <ProtectedRoute path="/courses/new" component={CourseForm} />
-          <ProtectedRoute path="/courses/:id" component={CourseView} />
-          <Dashboard path="/" />
+          <ProtectedRoutes path="/">
+            <Dashboard path="/" />
+            <Profile path="/profile" />
+            <Courses path="/courses" />
+            <CourseView path="/courses/:id" />
+          </ProtectedRoutes>
+          
+          <AdminRoutes path="/admin">
+            <CourseForm path="/courses/new" />
+          </AdminRoutes>
+
+          <CheckToken path="/courses/:id/register/:token">
+            <CourseRegister path="/" />
+          </CheckToken>
+
           <AuthRoute path="/login" component={Login} />
+          
           <Login path="/login" />
           <Register path="/register" />
           <NotFound default />

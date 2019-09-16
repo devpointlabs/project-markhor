@@ -1,14 +1,18 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState, useContext, } from "react";
 import CourseStudents from "./CourseStudents";
+import EnrollmentLink from "./EnrollmentLink";
 import axios from "../../utils/webRequests";
+import { AuthContext, } from "../../providers/AuthProvider";
 
-import { AppBar, Box, Tab, Tabs, Typography, } from "@material-ui/core";
+import { AppBar, Button, Box, Tab, Tabs, Typography, } from "@material-ui/core";
 
 const CourseView = ({ id, }) => {
   const [course, setCourse] = useState({});
   const [value, setValue] = React.useState(0);
+  const [showForm, setShowForm] = useState(false);
+  const { state: { user: { admin, }, } } = useContext(AuthContext);
 
-  useState( () => {
+  useEffect( () => {
     axios.get(`/api/courses/${id}`)
       .then( res => {
         setCourse(res.data.data.attributes);
@@ -42,7 +46,18 @@ const CourseView = ({ id, }) => {
             Quizzes
         </TabPanel>
           <TabPanel value={value} index={1}>
-            <CourseStudents />
+            { admin &&
+              <Button
+                variant="contained"
+                onClick={() => setShowForm(!showForm)}
+              >
+                { showForm ? "Show Students" : "Enroll Students" }
+              </Button>
+            }
+            { value === 1 && !showForm && <CourseStudents courseId={id} /> }
+            { showForm && 
+              <EnrollmentLink courseId={id} />           
+            }
         </TabPanel>
           <TabPanel value={value} index={2}>
             Settings
