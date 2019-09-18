@@ -9,9 +9,7 @@ import CourseForm from "./components/courses/CourseForm.js"
 import CourseView from "./components/courses/CourseView.js"
 import CourseRegister from "./components/courses/CourseRegister.js"
 import NotFound from "./components/NotFound.js"
-import ProtectedRoute from "./components/ProtectedRoute.js"
 import AuthRoute from "./components/AuthRoute.js"
-import AdminRoute from "./components/AdminRoute.js"
 import FetchUser from "./components/FetchUser";
 import CheckToken from "./components/CheckToken";
 import ProtectedRoutes from "./components/ProtectedRoutes";
