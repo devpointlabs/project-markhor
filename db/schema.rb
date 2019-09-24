@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_13_160630) do
+ActiveRecord::Schema.define(version: 2019_09_24_203229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "choices", force: :cascade do |t|
+    t.text "answer"
+    t.boolean "correct"
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_choices_on_question_id"
+  end
 
   create_table "courses", force: :cascade do |t|
     t.string "name"
@@ -33,6 +42,23 @@ ActiveRecord::Schema.define(version: 2019_09_13_160630) do
     t.index ["user_id"], name: "index_enrollments_on_user_id"
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.string "title"
+    t.bigint "quiz_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.bigint "course_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_quizzes_on_course_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -44,6 +70,9 @@ ActiveRecord::Schema.define(version: 2019_09_13_160630) do
     t.boolean "admin", default: false
   end
 
+  add_foreign_key "choices", "questions"
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"
+  add_foreign_key "questions", "quizzes"
+  add_foreign_key "quizzes", "courses"
 end

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext, } from "react";
 import CourseStudents from "./CourseStudents";
 import EnrollmentLink from "./EnrollmentLink";
 import axios from "../../utils/webRequests";
+import Quizzes from "../quizzes/Quizzes";
 import { AuthContext, } from "../../providers/AuthProvider";
 
 import { AppBar, Button, Box, Tab, Tabs, Typography, } from "@material-ui/core";
@@ -42,8 +43,8 @@ const CourseView = ({ id, }) => {
             <Tab label="Settings" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
-        <TabPanel value={value} index={0}>
-            Quizzes
+        <TabPanel value={value} index={0}>          
+          { value === 0 && <Quizzes courseId={id} /> }
         </TabPanel>
           <TabPanel value={value} index={1}>
             { admin &&

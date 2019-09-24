@@ -9,6 +9,13 @@ user = User.create(
 )
 
 course = Course.create(name: "U of U Fall 2019")
+3.times do
+  Quiz.create(
+    title: Faker::Educator.subject,
+    description: Faker::TvShows::MichaelScott.quote,
+    course_id: course.id
+  )
+end
 
 10.times do 
   user = User.create(

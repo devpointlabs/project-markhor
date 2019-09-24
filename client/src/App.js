@@ -8,6 +8,7 @@ import Courses from "./components/courses/Courses.js"
 import CourseForm from "./components/courses/CourseForm.js"
 import CourseView from "./components/courses/CourseView.js"
 import CourseRegister from "./components/courses/CourseRegister.js"
+import QuizBuilder from "./components/quizzes/QuizBuilder";
 import NotFound from "./components/NotFound.js"
 import AuthRoute from "./components/AuthRoute.js"
 import FetchUser from "./components/FetchUser";
@@ -33,6 +34,7 @@ const App = () => (
           
           <AdminRoutes path="/admin">
             <CourseForm path="/courses/new" />
+            <QuizBuilder path="/courses/:courseId/quizzes/:id" />
           </AdminRoutes>
 
           <CheckToken path="/courses/:id/register/:token">
