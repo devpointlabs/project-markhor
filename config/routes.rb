@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       resources :questions
     end
 
+    resources :questions do
+      resources :choices
+    end
+
     get "/courses/:id/course_users", to: "courses#course_users"
     get "/courses/:id/generate_register_token", to: "courses#generate_register_token"
     get "/courses/:id/verify_register_token", to: "courses#verify_register_token"

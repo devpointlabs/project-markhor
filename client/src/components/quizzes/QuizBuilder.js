@@ -20,15 +20,10 @@ const QuizBuilder = ({ id, courseId, }) => {
       })
   }, []);
 
-  // on questions update
-  // useEffect( () => {
-  //   debugger
-  // }, [questions])
-
   const handleAddQuestion = () => {
     axios.post(`/api/quizzes/${quiz.id}/questions`)
       .then( res => {
-        setQuestions([...questions, res.data.data.attributes])
+        setQuestions([...questions, res.data.data])
       })
       .catch( err => {
         console.log(err);
@@ -36,8 +31,7 @@ const QuizBuilder = ({ id, courseId, }) => {
   };
 
   const handleDelete = (id) => {
-    // debugger
-    setQuestions(questions.filter(q => q.id !== id))
+    setQuestions(questions.filter(q => q.attributes.id !== id));
   };
 
   return (

@@ -10,11 +10,32 @@ user = User.create(
 
 course = Course.create(name: "U of U Fall 2019")
 3.times do
-  Quiz.create(
+  quiz = Quiz.create(
     title: Faker::Educator.subject,
     description: Faker::TvShows::MichaelScott.quote,
     course_id: course.id
   )
+  3.times do
+    question = quiz.questions.create(
+      title: Faker::Quote.most_interesting_man_in_the_world
+    )
+    question.choices.create(
+      answer: Faker::TvShows::Seinfeld.quote,
+      correct: true
+    )
+    question.choices.create(
+      answer: Faker::TvShows::Seinfeld.quote,
+      correct: false
+    )
+    question.choices.create(
+      answer: Faker::TvShows::Seinfeld.quote,
+      correct: false
+    )
+    question.choices.create(
+      answer: Faker::TvShows::Seinfeld.quote,
+      correct: false
+    )
+  end
 end
 
 10.times do 

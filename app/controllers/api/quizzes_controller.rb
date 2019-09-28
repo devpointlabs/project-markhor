@@ -3,7 +3,7 @@ class Api::QuizzesController < ApiController
   before_action :set_quiz, only: [:show, :update, :destroy]
 
   def index
-    render json: QuizSerializer.new(@course.quizzes)
+    render json: QuizSerializer.new(@course.quizzes.order(created_at: :desc))
   end
 
   def show

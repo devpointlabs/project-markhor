@@ -31,7 +31,11 @@ const Quizzes = ({ courseId, }) => {
         open={open}
         onClose={() => setOpen(false)}
       >
-        <QuizForm setOpen={setOpen} courseId={courseId} />
+        <QuizForm 
+          setOpen={setOpen} 
+          courseId={courseId} 
+          setQuizzes={quiz => setQuizzes([quiz, ...quizzes])} 
+        />
       </Modal>
       {
         quizzes.map( quiz => {

@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { Button, TextField, Typography, } from "@material-ui/core";
 
-const QuizForm = ({ courseId, setOpen, }) => {
+const QuizForm = ({ courseId, setOpen, setQuizzes, }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -12,8 +12,8 @@ const QuizForm = ({ courseId, setOpen, }) => {
     e.preventDefault();
     axios.post(`/api/courses/${courseId}/quizzes`, { title, description, })
       .then( res => {
-        // TODO: Close modal and update state
         setOpen(false);
+        setQuizzes(res.data.data);
       })
       .catch( err => {
         // TODO: Error Handle
