@@ -1,6 +1,6 @@
 class Api::QuizzesController < ApiController
   before_action :set_course
-  before_action :set_quiz, only: [:show, :update, :destroy]
+  before_action :set_quiz, only: [:show, :update, :destroy, :publish_quiz]
 
   def index
     render json: QuizSerializer.new(@course.quizzes.order(created_at: :desc))
@@ -8,7 +8,7 @@ class Api::QuizzesController < ApiController
 
   def show
     render json: {
-      quiz: QuestionSerializer.new(@quiz),
+      quiz: QuizSerializer.new(@quiz),
       questions: QuestionSerializer.new(@quiz.questions)
     }
   end
@@ -32,6 +32,11 @@ class Api::QuizzesController < ApiController
     end
   end
 
+  def publish_quiz
+    @quiz.update(published_at: DateTime.now)
+    render json: QuizSerializer.new(@quiz)
+  end
+
   def destroy
     @quiz.destroy
   end
@@ -46,6 +51,6 @@ class Api::QuizzesController < ApiController
     end
 
     def quiz_params
-      params.require(:quiz).permit(:title, :description)
+      params.require(:quiz).permit(:title, :description, :published_at)
     end
 end

@@ -17,7 +17,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes";
 import AdminRoutes from "./components/AdminRoutes";
 import { Router, } from "@reach/router";
 
-import { Container } from '@material-ui/core';
+import { Container, } from '@material-ui/core';
 
 const App = () => (
   <div>

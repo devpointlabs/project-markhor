@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
     resources :courses do
       resources :quizzes
+      put "/quizzes/:id/publish", to: "quizzes#publish_quiz"
     end
 
     resources :quizzes do

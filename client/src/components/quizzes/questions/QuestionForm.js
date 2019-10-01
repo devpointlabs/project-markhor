@@ -2,7 +2,7 @@ import React, { useEffect, useState, } from "react";
 import axios from "../../../utils/webRequests";
 import ChoiceForm from "../choices/ChoiceForm";
 
-import { Button, IconButton, Paper, TextField, } from "@material-ui/core";
+import { IconButton, Paper, TextField, } from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -29,7 +29,7 @@ const QuestionForm = (props) => {
     e.preventDefault();
     if (title !== props.title)
       axios.put(`/api/quizzes/${props.quizId}/questions/${props.id}`, { question: { title }, })
-        .then( res => {
+        .then( () => {
           console.log("Success");
         })
         .catch( err => {
@@ -39,7 +39,7 @@ const QuestionForm = (props) => {
 
   const handleDelete = () => {
     axios.delete(`/api/quizzes/${props.quizId}/questions/${props.id}`)
-      .then( res => {
+      .then( () => {
         props.handleDelete(props.id);
       })
       .catch( err => {

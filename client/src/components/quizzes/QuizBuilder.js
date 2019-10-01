@@ -1,13 +1,14 @@
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState, useRef, } from "react";
 import QuestionForm from "./questions/QuestionForm";
 import axios from "../../utils/webRequests";
 
-import { IconButton, Typography, } from "@material-ui/core";
+import { Button, IconButton, Typography, } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 
 const QuizBuilder = ({ id, courseId, }) => {
   const [quiz, setQuiz] = useState({});
   const [questions, setQuestions] = useState([]);
+  const ref = useRef();
 
   useEffect( () => {
     axios.get(`/api/courses/${courseId}/quizzes/${id}`)
@@ -24,6 +25,7 @@ const QuizBuilder = ({ id, courseId, }) => {
     axios.post(`/api/quizzes/${quiz.id}/questions`)
       .then( res => {
         setQuestions([...questions, res.data.data])
+        ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
       })
       .catch( err => {
         console.log(err);
@@ -34,9 +36,23 @@ const QuizBuilder = ({ id, courseId, }) => {
     setQuestions(questions.filter(q => q.attributes.id !== id));
   };
 
+
+  const publishQuiz = () => {    
+    axios.put(`/api/courses/${courseId}/quizzes/${id}/publish`)
+      .then( res => {
+        debugger
+      })
+      .catch( err => {
+        debugger
+      })
+  };
+
   return (
     <div>
-      <Typography variant="h4" component="h1">{ quiz.title }</Typography>
+      <div style={{ display: "flex", justifyContent: "space-between", }}>
+        <Typography variant="h4" component="h1">{ quiz.title }</Typography>
+        <Button variant="contained" onClick={publishQuiz}>Publish Quiz</Button>
+      </div>
       <br />
       <IconButton 
         size="small" 
@@ -57,6 +73,7 @@ const QuizBuilder = ({ id, courseId, }) => {
         />
       ))}
       <br />
+      <div ref={ref} />
     </div>
   );
 };
