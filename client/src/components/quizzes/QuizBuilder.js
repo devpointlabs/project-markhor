@@ -16,6 +16,7 @@ const QuizBuilder = ({ id, courseId, }) => {
   useEffect( () => {
     axios.get(`/api/courses/${courseId}/quizzes/${id}`)
       .then( res => {
+        setTitle(res.data.quiz.data.attributes.title);
         setQuiz(res.data.quiz.data.attributes);
         setQuestions(res.data.questions.data);
       })
@@ -31,6 +32,7 @@ const QuizBuilder = ({ id, courseId, }) => {
         ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
       })
       .catch( err => {
+        // TODO: Error handle
         console.log(err);
       })
   };
@@ -47,6 +49,18 @@ const QuizBuilder = ({ id, courseId, }) => {
         setQuiz(res.data.data.attributes);
       })
       .catch( err => {
+        // TODO: Error handle
+        console.log(err);
+      })
+  };
+
+  const handleSubmit = () => {
+    axios.put(`/api/courses/${courseId}/quizzes/${id}`, { title, })
+      .then( res => {
+        setQuiz(res.data.data.attributes);
+      })
+      .catch( err => {
+        // TODO: Error handle
         console.log(err);
       })
   };
@@ -63,6 +77,7 @@ const QuizBuilder = ({ id, courseId, }) => {
           margin="normal"
           required
           fullWidth
+          onBlur={handleSubmit}
         />
         <Button variant="contained" onClick={publishQuiz}>
           { quiz.publishedAt ? "Unpublish Quiz" : "Publish Quiz" }
