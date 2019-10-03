@@ -33,7 +33,11 @@ class Api::QuizzesController < ApiController
   end
 
   def publish_quiz
-    @quiz.update(published_at: DateTime.now)
+    if @quiz.published_at
+      @quiz.update(published_at: nil)
+    else
+      @quiz.update(published_at: DateTime.now)
+    end
     render json: QuizSerializer.new(@quiz)
   end
 

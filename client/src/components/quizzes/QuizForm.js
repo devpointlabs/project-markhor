@@ -26,13 +26,13 @@ const QuizForm = ({ courseId, setOpen, setQuizzes, }) => {
       <Typography variant="h4" component="h1">New Quiz</Typography>
       <Form onSubmit={handleSubmit}>
         <TextField
-          label="Title"
-          placeholder="Title"
+          label="Question"
+          name="name"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={e => setTitle(e.target.value)}
           margin="normal"
-          variant="outlined"
-          required
+          fullWidth
+          onBlur={handleSubmit}
         />
         <br />
 

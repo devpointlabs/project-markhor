@@ -13,6 +13,7 @@ import NotFound from "./components/NotFound.js"
 import AuthRoute from "./components/AuthRoute.js"
 import FetchUser from "./components/FetchUser";
 import CheckToken from "./components/CheckToken";
+import FlashWrapper from "./components/FlashWrapper";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import AdminRoutes from "./components/AdminRoutes";
 import { Router, } from "@reach/router";
@@ -22,6 +23,7 @@ import { Container, } from '@material-ui/core';
 const App = () => (
   <div>
     <Navbar />
+    <FlashWrapper />  
     <Container maxWidth="lg">    
       <FetchUser>
         <Router>

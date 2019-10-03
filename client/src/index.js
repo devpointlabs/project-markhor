@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { AuthProvider, } from "./providers/AuthProvider";
+import { FlashProvider, } from "./providers/FlashProvider";
 
 ReactDOM.render(
-  <AuthProvider>
-    <App /> 
-  </AuthProvider>,
+  <FlashProvider>
+    <AuthProvider>
+      <App /> 
+    </AuthProvider>
+  </FlashProvider>,
   document.getElementById('root')
 );
 

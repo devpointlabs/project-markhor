@@ -1,14 +1,17 @@
-import React, { useEffect, useState, useRef, } from "react";
+import React, { useEffect, useState, useRef, useContext, } from "react";
 import QuestionForm from "./questions/QuestionForm";
 import axios from "../../utils/webRequests";
+import { FlashContext, } from "../../providers/FlashProvider";
 
-import { Button, IconButton, Typography, } from "@material-ui/core";
+import { Button, IconButton, TextField, Typography, } from "@material-ui/core";
 import AddIcon from '@material-ui/icons/Add';
 
 const QuizBuilder = ({ id, courseId, }) => {
+  const [title, setTitle] = useState("");
   const [quiz, setQuiz] = useState({});
   const [questions, setQuestions] = useState([]);
   const ref = useRef();
+  const { setFlash, } = useContext(FlashContext);
 
   useEffect( () => {
     axios.get(`/api/courses/${courseId}/quizzes/${id}`)
@@ -36,22 +39,34 @@ const QuizBuilder = ({ id, courseId, }) => {
     setQuestions(questions.filter(q => q.attributes.id !== id));
   };
 
-
   const publishQuiz = () => {    
     axios.put(`/api/courses/${courseId}/quizzes/${id}/publish`)
-      .then( res => {
-        debugger
+    .then( res => {
+        // Not working
+        setFlash("Message", "success");
+        setQuiz(res.data.data.attributes);
       })
       .catch( err => {
-        debugger
+        console.log(err);
       })
   };
 
   return (
     <div>
       <div style={{ display: "flex", justifyContent: "space-between", }}>
-        <Typography variant="h4" component="h1">{ quiz.title }</Typography>
-        <Button variant="contained" onClick={publishQuiz}>Publish Quiz</Button>
+        {/* <Typography variant="h4" component="h1">{ quiz.title }</Typography> */}
+        <TextField
+          label="Title"
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          margin="normal"
+          required
+          fullWidth
+        />
+        <Button variant="contained" onClick={publishQuiz}>
+          { quiz.publishedAt ? "Unpublish Quiz" : "Publish Quiz" }
+        </Button>
       </div>
       <br />
       <IconButton 
